@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>lesson 5</title>
+    <style type="text/css">
+        table {
+            margin: 8px;
+            border-collapse: collapse;
+        }
+
+        td span {
+            display: inline-block;
+            font-size: 2em;
+        }
+
+        td {
+            width: 48px;
+            height: 48px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-align: center;
+            background-color: #a29a9d;
+            border: 1px solid #251c1c;
+        }
+
+        .chessboard td.black {
+            background-color: #605c64;
+        }
+
+        tr:first-child td,
+        tr:last-child td,
+        td:last-child,
+        td:first-child {
+            background-color: transparent;
+            color: #605c64;
+            font-family: monospace;
+            font-size: 8px !important;
+            border: transparent;
+        }
+
+        .pawns .cell,
+        .figures .cell {
+            color: #d6d0d0;
+        }
+
+        td:first-of-type span,
+        .letters span {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        (() => {
+            const html = [];
+            html.push('<tbody>');
+
+            const fill = {
+                letters: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+                figures: ['♜', '♞', '♝', '♛', '♚', '♝', '♞', '♜'],
+                pawns: ['♟', '♟', '♟', '♟', '♟', '♟', '♟', '♟'],
+                empty: [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            }
+
+            const makeRow = (items, row, className) => {
+                html.push(`<tr class="${className}">`);
+                html.push(`<td class="index"><span>${row || ' '}</span></td>`);
+
+                for (let i = 0; i < 8; i++) {
+                    let cellClassName = 'cell';
+
+                    if (row && (row + i) % 2 === 0) {
+                        cellClassName += ' black';
+                    }
+
+                    html.push(`<td class="${cellClassName}"><span>${items[i]}</span></td>`);
+                }
+
+                html.push(`<td class="index"><span>${row || ' '}</span></td>`);
+                html.push('</tr>');
+            }
+
+            makeRow(fill.letters, 0, 'letters');
+            makeRow(fill.figures, 8, 'figures');
+            makeRow(fill.pawns, 7, 'pawns');
+            makeRow(fill.empty, 6, 'empty');
+            makeRow(fill.empty, 5, 'empty');
+            makeRow(fill.empty, 4, 'empty');
+            makeRow(fill.empty, 3, 'empty');
+            makeRow(fill.pawns, 2, 'snwap');
+            makeRow(fill.figures, 1, 'serugif');
+            makeRow(fill.letters, 0, 'srettel');
+
+            html.push('</tbody>');
+
+            const table = document.createElement('table');
+            table.innerHTML = html.join('');
+            table.className = 'chessboard';
+            document.body.appendChild(table);
+        })();
+    </script>
+</body>
+
+</html>
