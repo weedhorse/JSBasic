@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;700&display=swap"
+        rel="stylesheet" />
+    <link href="homepage.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="page">
+
+        <div class="wrapper" id="header">
+            <div class="container">
+                <div class="header__logo"></div>
+                <div id="cart">
+                    <span class="cartTotal"></span>
+                </div>
+                <div class="header__menu">
+                    <a class="header__link" href="#">Home</a>
+                    <a class="header__link" href="#">Products</a>
+                    <a class="header__link" href="#">History</a>
+                    <a class="header__link header__link_active" href="#">Showroom</a>
+                    <a class="header__link" href="#">Contact</a>
+                    <span>
+                        <img alt="" src="img/search.png" />
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div style="height: 120px"></div>
+
+        <div class="wrapper" id="categories">
+            <div class="container">
+                <div>
+                    <a class="categories__link" href="#">All</a>
+                    <a class="categories__link" href="#">Home</a>
+                    <a class="categories__link" href="#">Office</a>
+                    <a class="categories__link" href="#">Furniture</a>
+                    <a class="categories__link categories__link_active" href="#">Modern</a>
+                    <a class="categories__link" href="#">Classic</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="wrapper" id="details">
+            <div class="container">
+                <div class="product">
+                    <div class="product__cell">
+                        <div class="product__preview">
+                            <span id="productPrev" class="button button_round"></span>
+                            <img id="productImage" alt="" src="img/product_0.png" />
+                            <span id="productNext" class="button button_round"></span>
+                        </div>
+                        <div class="product__gallery">
+                            <span class="product__gallery-item">
+                                <img alt="" src="img/product_1.png" />
+                            </span>
+                            <span class="product__gallery-item">
+                                <img alt="" src="" />
+                            </span>
+                            <span class="product__gallery-item">
+                                <img alt="" src="img/product_2.png" />
+                            </span>
+                            <span class="product__gallery-item product__gallery-item_selected">
+                                <img alt="" src="img/product_0.png" />
+                            </span>
+                        </div>
+                    </div>
+                    <div class="product__cell">
+                        <div class="product__title">Fishnet Chair</div>
+                        <div class="product__subtitle">Hot Deal</div>
+                        <div class="product__price">$ <b>36.7</b>/sq</div>
+                        <div class="product__button" data-product-id="1">
+                            <span class="button button_red">
+                                <span class="button_text">Order us</span>
+                            </span>
+                        </div>
+                        <div class="product__info">
+                            <p>The majesty of Mountains - Ugmonk style.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut
+                                labore</p>
+                            <p>et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                                laboris
+                                nisi ut aliquip ex ea commodo consequat.</p>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                                nulla
+                                pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="wrapper section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-title">Related products</span>
+                    <span class="section-aside">Explore all</span>
+                </div>
+                <div class="tiles">
+                    <div class="tiles__tile tiles__tile_m">
+                        <div class="tile-info" data-product-id="2">
+                            <div class="tile-info__content">
+                                <span class="button button_round"></span>
+                                <div class="tile-info__title">Добавить в корзину</div>
+                                <div class="tile-info__description">Seat and back with upholstery made of cold cure foam
+                                </div>
+                            </div>
+                        </div>
+                        <img alt="" src="img/product-11.png" />
+                    </div>
+                    <div class="tiles__tile tiles__tile_m">
+                        <div class="tile-info" data-product-id="3">
+                            <div class="tile-info__content">
+                                <span class="button button_round"></span>
+                                <div class="tile-info__title">Добавить в корзину</div>
+                                <div class="tile-info__description">Seat and back with upholstery made of cold cure foam
+                                </div>
+                            </div>
+                        </div>
+                        <img alt="" src="img/product-21.png" />
+                    </div>
+                    <div class="tiles__tile tiles__tile_m">
+                        <div class="tile-info" data-product-id="4">
+                            <div class="tile-info__content">
+                                <span class="button button_round"></span>
+                                <div class="tile-info__title">Добавить в корзину</div>
+                                <div class="tile-info__description">Seat and back with upholstery made of cold cure foam
+                                </div>
+                            </div>
+                        </div>
+                        <img alt="" src="img/product-31.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="wrapper footer">
+            <div class="container">
+                <div class="footer__content">
+                    <div class="footer__nav">
+                        <div>
+                            <h3>Contact us</h3>
+                            <address>
+                                132A Bridge Road Richmond VIC
+                                Australia.
+                            </address>
+                            <div>
+                                Talk to us on <a href="tel:000000">1300 132</a>
+                                <a href="mailto:info@interior.com">info@interior.com</a>
+                            </div>
+                        </div>
+                        <div>
+                            <h3>Useful Information</h3>
+                            <div>
+                                <ul>
+                                    <li><a href="#">Sales terms</a></li>
+                                    <li><a href="#">Customer care</a></li>
+                                    <li><a href="#">Delivery</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Architect accounts</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                    <li><a href="#">Exchanges & returns</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div>
+                            <h3>Let’s Stay in Touch!</h3>
+                            <p>Suscribe to know about our latest news, products and special offers just for suscribers.
+                            </p>
+                            <input placeholder="your email address" type="email" />
+                        </div>
+                    </div>
+                    <div class="footer__copy">
+                        <div>© Copyright - INTERIOR 2016. All Rights Reserved.</div>
+                        <div><img alt="" src="img/social-links.png" /></div>
+                        <div>
+                            <a href="#">Terms & Conditions</a> / <a href="#">Privacy policy & Cookies</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <script type="text/javascript" src="./js/productpage.js"></script>
+</body>
+
+</html>
