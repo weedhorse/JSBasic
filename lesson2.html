@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>lesson02</title>
+    <style>
+        div {
+            border: solid 1px gray;
+            padding: 3px;
+            width: 660px;
+            margin: 3px auto;
+        }
+
+        input {
+            width: 20%;
+            margin: 2px;
+        }
+
+        .answer {
+            background-color: azure;
+        }
+
+        .task {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <!--ЗАДАНИЕ 1-->
+    <div class="task">
+        1. Дан код: <br>
+        <pre>(1) var a = 1, b = 1, c, d;
+(2) c = ++a; alert(c);           // 2
+(3) d = b++; alert(d);           // 1
+(4) c = (2+ ++a); alert(c);      // 5
+(5) d = (2+ b++); alert(d);      // 4
+(6) alert(a);                    // 3
+(7) alert(b);                    // 3</pre>
+        Почему код даёт именно такие результаты?
+    </div>
+    <div class="answer">
+        <pre>(1) a = 1, b = 1, c = undefined, d = undefined
+(2) c = 2, a = 2 (сначала прибавили 1 переменной а, затем присвоили с)
+(3) d = 1, b = 2 (сначала присвоили значение b переменной d, затем увеличили b на 1)
+(4) с = 2 + (2 + 1) = 5, a = 3 (увеличили a на 1, затем прибавили 2 и присвоили к с)
+(5) d = 2 + 2 = 4, b = 3 (прибавили 2 к b и присвоили к d, затем b увеличили на 1)
+(6) все, что делали с а, сохранилось
+(7) все, что делали с b, сохранилось</pre>
+    </div>
+
+    <!--ЗАДАНИЕ 2-->
+    <div class="task">
+        2. Чему будет равен x в примере ниже?
+        <pre>var a = 2;
+var x = 1 + (a *= 2);</pre>
+    </div>
+    <div class="answer">
+        <pre>x = 5 (сначала а = 2 * 2, затем + 1)</pre>
+    </div>
+
+    <!--ЗАДАНИЕ 3-->
+    <div class="task">
+        3. Объявить две целочисленные переменные a и b и задать им произвольные начальные значения. Затем написать
+        скрипт, который работает по следующему принципу:
+        <ul>
+            <li>если a и b положительные, вывести их разность;</li>
+            <li>если а и b отрицательные, вывести их произведение;</li>
+            <li>если а и b разных знаков, вывести их сумму; ноль можно считать положительным числом.</li>
+        </ul>
+    </div>
+    <script id="task3">
+        function conditionalMath(a, b) {
+            if (a >= 0 && b >= 0) {
+                return a - b
+            }
+            if (a < 0 && b < 0) {
+                return a * b
+            }
+            return parseInt(a) + parseInt(b)
+        }
+
+        function task3() {
+            var a = document.getElementById('a').value;
+            var b = document.getElementById('b').value;
+
+            return conditionalMath(a, b);
+        }
+    </script>
+    <div class="answer">
+        <pre><script>document.write(document.getElementById('task3').innerHTML)</script></pre>
+        <input id="a" value="10" type="number">
+        <input id="b" value="15" type="number">
+        <input value="Пуск" onclick="alert(task3())" type="button">
+    </div>
+
+    <!--ЗАДАНИЕ 4-->
+    <div class="task">
+        4. Присвоить переменной а значение в промежутке [0..15]. С помощью оператора <code>switch</code> организовать
+        вывод чисел от a до 15.
+    </div>
+    <script id="task4">
+        function task4() {
+            var n = parseInt(document.getElementById('c').value);
+            return listFromN(n)
+        }
+        function listFromN(n) {
+            var result = '';
+            switch (n) {
+                case 1: result += '1 ';
+                case 2: result += '2 ';
+                case 3: result += '3 ';
+                case 4: result += '4 ';
+                case 5: result += '5 ';
+                case 6: result += '6 ';
+                case 7: result += '7 ';
+                case 8: result += '8 ';
+                case 9: result += '9 ';
+                case 10: result += '10 ';
+                case 11: result += '11 ';
+                case 12: result += '12 ';
+                case 13: result += '13 ';
+                case 14: result += '14 ';
+                case 15:
+                    result += '15';
+                    break;
+                default:
+                    result += 'Вы ввели неудобное число';
+                    break;
+            }
+            return result;
+        }
+    </script>
+    <div class="answer">
+        <pre><script>document.write(document.getElementById('task4').innerHTML)</script></pre>
+        <input id="c" value="2" type="number">
+        <input value="Пуск" onclick="alert(task4())" type="button">
+    </div>
+    <!--ЗАДАНИЕ 5-->
+    <div class="task">
+        5. Реализовать основные 4 арифметические операции в виде функций с двумя параметрами. Обязательно использовать
+        оператор <code>return</code>.
+    </div>
+    <script id="task5">
+        function add(x, y) {
+            return x + y
+        }
+
+        function mult(x, y) {
+            return x * y
+        }
+
+        function sub(x, y) {
+            return x - y
+        }
+
+        function div(x, y) {
+            return x / y
+        }
+    </script>
+    <div class="answer">
+        <pre><script>document.write(document.getElementById('task5').innerHTML)</script></pre>
+    </div>
+    <!--ЗАДАНИЕ 6-->
+    <div class="task">
+        6. Реализовать функцию с тремя параметрами: <code>function mathOperation(arg1, arg2, operation)</code>, где
+        <code>arg1</code>,
+        <code>arg2</code> – значения аргументов, <code>operation</code> – строка с названием операции. В зависимости от
+        переданного значения
+        операции выполнить одну из арифметических операций (использовать функции из пункта 3) и вернуть полученное
+        значение (использовать <code>switch</code>).
+    </div>
+    <script id="task6">
+        function task6() {
+            var arg1 = parseInt(document.getElementById('arg1').value)
+            var arg2 = parseInt(document.getElementById('arg2').value)
+            var operation = document.getElementById('operation').value
+            return mathOperation(arg1, arg2, operation)
+        }
+        function mathOperation(arg1, arg2, operation) {
+            switch (operation) {
+                case 'add':
+                    return add(arg1, arg2);
+                case 'mult':
+                    return mult(arg1, arg2);
+                case 'sub':
+                    return sub(arg1, arg2);
+                case 'div':
+                    return div(arg1, arg2);
+                default:
+                    return 'Неизвестная операция'
+            }
+        }
+    </script>
+    <div class="answer">
+        <pre><script>document.write(document.getElementById('task6').innerHTML)</script></pre>
+        <input id="arg1" value="10" type="number">
+        <input id="arg2" value="15" type="number">
+        <input id="operation" value="add">
+        <input value="Пуск" onclick="alert(task6())" type="button">
+    </div>
+    <!--ЗАДАНИЕ 7-->
+    <div class="task">
+        7. * Сравнить null и 0. Попробуйте объяснить результат.
+    </div>
+    <div class="answer">
+        <pre>alert(null == 0);</pre> <input value="Пуск" onclick="alert(null == 0)" type="button"><br>
+        <pre>alert(null === 0);</pre> <input value="Пуск" onclick="alert(null === 0)" type="button"><br>
+        <pre>alert(Number(null));</pre> <input value="Пуск" onclick="alert(Number(null))" type="button"><br>
+        <pre>alert(Number(undefined));</pre> <input value="Пуск" onclick="alert(Number(undefined))" type="button"><br>
+        Значения null и undefined равны друг другу, но не чему бы то ни было еще. Это жесткое правило прописано в
+        спецификации языка. При явном преобразовании в число (то есть вызванном пользователем) null принимает значение
+        0, а
+        undefined — NaN. При строгом сравнении разные типы
+    </div>
+    <!--ЗАДАНИЕ 8-->
+    <div class="task">
+        8. * С помощью рекурсии организовать функцию возведения числа в степень. Формат:
+        <code>function power(val, pow)</code>, где
+        <code>val</code> – заданное число, <code>pow</code> – степень.
+    </div>
+    <script id="task8">
+        function task8() {
+            var val = parseInt(document.getElementById('val').value);
+            var pow = parseInt(document.getElementById('pow').value);
+            return power(val, pow)
+        }
+        function power(val, pow) {
+            if (pow == 1) {
+                return val;
+            }
+            return val * power(val, pow - 1);
+        }
+    </script>
+    <div class="answer">
+        <pre><script>document.write(document.getElementById('task8').innerHTML)</script></pre>
+        <input id="val" value="2" type="number">
+        <input id="pow" value="10" type="number" max="10" min="1">
+        <input value="Пуск" onclick="alert(task8())" type="button">
+    </div>
+</body>
+
+</html>
