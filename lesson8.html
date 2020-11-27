@@ -1,0 +1,301 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        table {
+            margin: auto;
+            color: black;
+            border-collapse: collapse;
+        }
+
+        td {
+            height: 20px;
+            width: 20px;
+            outline: 1px solid rgba(0, 0, 0, .1);
+            overflow: hidden;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        .head {
+            /*background-color: red;*/
+        }
+
+        .head:after {
+            content: "8";
+        }
+
+        .body {}
+
+        .body:after {
+            content: "O";
+        }
+
+        .fruit {
+            box-shadow: inset 0 0 10px gold;
+        }
+
+        .fruit:after {
+            content: "O";
+        }
+
+        .bomb {
+            box-shadow: inset 0 0 10px red;
+        }
+
+        .bomb:after {
+            content: "X";
+        }
+
+
+        #gameOver {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table id="board"></table>
+
+    <h1 id="gameOver">game over</h1>
+    <h1 id="score"></h1>
+
+
+    <script type="text/javascript">
+        (() => {
+            const DIMENSIONS = {
+                x: 25,
+                y: 25
+            };
+
+            let interval = null;
+            let gameOver = false;
+            let score = 0;
+            const speed = 100;
+            const cnHead = 'head';
+            const cnBody = 'body';
+            const cnFruit = 'fruit';
+            const cnBomb = 'bomb';
+            const board = document.getElementById("board");
+            const elScore = document.getElementById("score");
+            const elGameOver = document.getElementById("gameOver");
+
+            const items = ((maxX, maxY) => { // изолируем и переиспользуем DIMENSIONS
+                const getRandom = (max) => Math.floor(Math.random() * max);
+
+                let fruit = { x: getRandom(maxX), y: getRandom(maxY) }
+                let bomb = { x: getRandom(maxX), y: getRandom(maxY) }
+
+                const addFruit = () => fruit = { x: getRandom(maxX), y: getRandom(maxY) }
+                const addBomb = () => bomb = { x: getRandom(maxX), y: getRandom(maxY) }
+                const getFruit = () => fruit;
+                const getBomb = () => bomb;
+
+                return {
+                    addFruit,
+                    addBomb,
+                    getFruit,
+                    getBomb,
+                }
+            })(DIMENSIONS.x, DIMENSIONS.y);
+
+
+            class Snake {
+                constructor(length = 1, head = new Cell(3, 3)) {
+                    this.length = length;
+                    this.head = head;
+                    this.tail = head;
+                    this.maxlength = 1;
+                    this.body = [];
+                    this.direction = "down";
+                }
+
+                go(direction) {
+                    let nextTail = {
+                        x: this.tail.x,
+                        y: this.tail.y
+                    }
+                    let lastTail = {
+                        x: this.head.x,
+                        y: this.head.y
+                    }
+
+                    switch (direction) {
+                        case "down":
+                            if (this.head.y + 1 === DIMENSIONS.y) {
+                                this.head.y = -1;
+                            }
+                            this.head.y += 1;
+                            break;
+
+                        case "up":
+                            if (this.head.y === 0) {
+                                this.head.y = DIMENSIONS.y;
+                            }
+                            this.head.y -= 1;
+                            break;
+
+
+                        case "left":
+                            if (this.head.x === 0) {
+                                this.head.x = DIMENSIONS.x;
+                            }
+                            this.head.x -= 1;
+                            break;
+
+                        case "right":
+                            if (this.head.x + 1 === DIMENSIONS.x) {
+                                this.head.x = -1;
+                            }
+                            this.head.x += 1;
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    for (let cell of this.body) {
+                        let currTail = { x: cell.x, y: cell.y }
+                        cell.x = lastTail.x;
+                        cell.y = lastTail.y
+                        lastTail = currTail;
+                    }
+
+                    if (this.length < this.maxlength) {
+                        let newTail = new Cell(nextTail.x, nextTail.y);
+                        this.body.push(newTail);
+                        this.tail = newTail;
+                        this.length += 1;
+                    }
+
+                }
+
+            }
+
+            class Cell {
+                constructor(x = 0, y = 0) {
+                    this.x = x;
+                    this.y = y;
+                }
+            }
+
+            let snake = new Snake();
+
+
+            function cycle() {
+                function draw() {
+                    [...document.getElementsByTagName(`td`)].forEach((item) => item.setAttribute('class', ''));
+
+                    for (let cell of snake.body) {
+                        document.getElementById(`${cell.y}-${cell.x}`).setAttribute('class', cnBody);
+                    }
+
+                    document.getElementById(`${snake.head.y}-${snake.head.x}`).setAttribute('class', cnHead);
+                }
+
+                function drawFruit() {
+                    document.getElementById(`${items.getFruit().y}-${items.getFruit().x}`).setAttribute('class', cnFruit)
+                    document.getElementById(`${items.getBomb().y}-${items.getBomb().x}`).setAttribute('class', cnBomb)
+                }
+
+
+                function check() {
+                    // bomb
+                    if (`${snake.head.x}-${snake.head.y}` === `${items.getBomb().x}-${items.getBomb().y}`) {
+                        gameOver = true;
+                        clearInterval(interval);
+                        return;
+                    }
+
+                    // fruit
+                    if (`${snake.head.x}-${snake.head.y}` === `${items.getFruit().x}-${items.getFruit().y}`) {
+                        snake.maxlength += 1;
+                        score += 100;
+                        items.addFruit();
+                        items.addBomb();
+                        drawScore();
+                    }
+
+                    // snake
+                    const headPos = `${snake.head.x}-${snake.head.y}`;
+                    for (let cell of snake.body) {
+                        let bodyPos = `${cell.x}-${cell.y}`;
+                        if (headPos === bodyPos) {
+                            gameOver = true;
+                        }
+                    }
+                }
+
+                snake.go(snake.direction);
+                draw();
+                check();
+                drawFruit();
+
+                if (gameOver) {
+                    elGameOver.style.setProperty("display", "block");
+                    clearInterval(interval);
+                }
+            }
+
+            function drawScore() {
+                elScore.innerHTML = score;
+            }
+
+            function run() {
+                interval = setInterval(() => {
+                    cycle()
+                }, speed);
+            }
+
+            window.onload = () => {
+                let html = '';
+                for (let y = 0; y < DIMENSIONS.y; y += 1) {
+                    html += '<tr>';
+                    for (let x = 0; x < DIMENSIONS.x; x += 1) {
+                        html += `<td class="cell" id="${y}-${x}"></td>`;
+                    }
+                    html += '</tr>';
+                }
+                board.innerHTML = html;
+
+                items.addFruit();
+                items.addBomb();
+                drawScore();
+                run();
+
+                document
+                    .addEventListener('keydown', (event) => {
+                        switch (event.key) {
+                            case 'ArrowDown':
+                                if (snake.direction !== "up") snake.direction = "down";
+                                break;
+                            case 'ArrowUp':
+                                if (snake.direction !== "down") snake.direction = "up";
+                                break;
+                            case 'ArrowLeft':
+                                if (snake.direction !== "right") snake.direction = "left";
+                                break;
+                            case 'ArrowRight':
+                                if (snake.direction !== "left") snake.direction = "right";
+                                break;
+                        }
+                    });
+            }
+        })();
+    </script>
+</body>
+
+</html>
